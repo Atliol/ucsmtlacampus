@@ -1,0 +1,393 @@
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.game {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #202b35;
+  font-family: Arial, sans-serif;
+}
+
+.game-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  touch-action: none;
+}
+
+.game-hud {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  right: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  color: white;
+  background: rgba(20, 30, 42, .82);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 15px;
+  pointer-events: none;
+}
+
+.game-hud h2 {
+  margin: 0 0 5px;
+  font-size: 18px;
+}
+
+.game-hud span {
+  color: #cbd5e1;
+  font-size: 12px;
+}
+
+.student-info {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  gap: 5px;
+}
+
+.activity-panel {
+  position: absolute;
+  z-index: 4;
+  top: 88px;
+  right: 18px;
+  width: 290px;
+  max-height: min(54vh, 390px);
+  overflow: auto;
+  color: #f3f5f3;
+  background: rgba(20, 30, 42, .9);
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.24);
+  backdrop-filter: blur(12px);
+}
+
+.activity-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 6px;
+  border-bottom: 1px solid rgba(255,255,255,.12);
+}
+
+.activity-tabs button {
+  min-height: 36px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: #cbd5e1;
+  cursor: pointer;
+}
+
+.activity-tabs button.active {
+  background: #315a58;
+  color: white;
+}
+
+.mission-list {
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding: 5px 12px 10px;
+  list-style: none;
+}
+
+.mission-list li {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 8px;
+  padding: 9px 2px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.mission-list li:last-child {
+  border-bottom: 0;
+}
+
+.mission-list strong,
+.mission-list small,
+.schedule-item strong,
+.schedule-item small {
+  display: block;
+}
+
+.mission-list strong,
+.schedule-item strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.mission-list small,
+.schedule-item small {
+  margin-top: 3px;
+  color: #adbac4;
+  font-size: 11px;
+}
+
+.mission-check {
+  color: #a9bd9a;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.mission-list .complete strong {
+  color: #b7c8b1;
+  text-decoration: line-through;
+}
+
+.schedule-panel {
+  padding: 12px;
+}
+
+.schedule-clock {
+  margin: 0 0 8px;
+  color: #e7eee8;
+  font-size: 20px;
+  font-variant-numeric: tabular-nums;
+}
+
+.schedule-clock span {
+  margin-left: 7px;
+  color: #96aaa6;
+  font-size: 9px;
+}
+
+.schedule-item {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 8px;
+  padding: 9px 7px;
+  border-left: 2px solid rgba(255,255,255,.16);
+}
+
+.schedule-item.current {
+  border-left-color: #b8d28d;
+  background: rgba(184,210,141,.1);
+}
+
+.schedule-item time {
+  color: #d3ded7;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.camera-button {
+  position: absolute;
+  top: 88px;
+  right: 326px;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 12px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.interaction-prompt {
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: 112px;
+  transform: translateX(-50%);
+  padding: 10px 15px;
+  color: white;
+  background: rgba(15, 25, 30, .88);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 8px;
+  font-size: 13px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.dialogue-panel {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  bottom: 150px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  width: min(480px, calc(100vw - 32px));
+  padding: 16px 18px;
+  transform: translateX(-50%);
+  color: #f3f5f3;
+  background: rgba(20, 30, 42, .94);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 10px;
+}
+
+.dialogue-panel strong {
+  color: #c4d6ae;
+  font-size: 14px;
+}
+
+.dialogue-panel p {
+  margin: 7px 0 0;
+  color: #d8e0df;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.dialogue-panel button {
+  padding: 0 4px;
+  border: 0;
+  background: transparent;
+  color: #dce5e1;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.mobile-controls {
+  position: absolute;
+  bottom: 55px;
+  left: 25px;
+  display: grid;
+  grid-template-columns: repeat(3, 55px);
+  gap: 7px;
+}
+
+.mobile-controls button {
+  width: 55px;
+  height: 55px;
+  border: 1px solid rgba(255,255,255,.35);
+  border-radius: 14px;
+  background: rgba(15, 25, 40, .85);
+  color: white;
+  font-size: 22px;
+  touch-action: none;
+  user-select: none;
+}
+
+.mobile-controls .up {
+  grid-column: 2;
+}
+
+.mobile-controls .left {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.mobile-controls .down {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.mobile-controls .right {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.mobile-controls .sprint {
+  grid-column: 1;
+  grid-row: 3;
+  font-size: 13px;
+  background: #2563eb;
+}
+
+.mobile-controls .interact {
+  grid-column: 3;
+  grid-row: 3;
+  font-size: 16px;
+  background: #315a58;
+}
+
+.mobile-controls button:active {
+  background: #2563eb;
+}
+
+.game-hint {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  background: rgba(15, 25, 40, .8);
+  color: white;
+  font-size: 12px;
+}
+
+.loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: #192431;
+  color: white;
+  z-index: 10;
+}
+
+@media (pointer: fine) {
+  .mobile-controls {
+    opacity: .65;
+  }
+
+  .activity-panel {
+    top: 84px;
+    right: 8px;
+    width: min(270px, calc(100vw - 16px));
+    max-height: 42vh;
+  }
+
+  .camera-button {
+    top: auto;
+    right: 8px;
+    bottom: 220px;
+    padding: 10px 12px;
+  }
+
+  .interaction-prompt {
+    bottom: 160px;
+    max-width: calc(100vw - 24px);
+    text-align: center;
+    white-space: normal;
+  }
+
+  .dialogue-panel {
+    bottom: 205px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .game-hud {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    padding: 12px;
+  }
+
+  .game-hud h2 {
+    font-size: 15px;
+  }
+
+  .mobile-controls {
+    left: 12px;
+    bottom: 35px;
+    grid-template-columns: repeat(3, 48px);
+  }
+
+  .mobile-controls button {
+    width: 48px;
+    height: 48px;
+  }
+
+  .game-hint {
+    right: 8px;
+    bottom: 8px;
+    font-size: 10px;
+  }
+}
